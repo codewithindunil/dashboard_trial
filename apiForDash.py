@@ -1,9 +1,6 @@
 from flask import Flask,render_template,request
-
 from flask import Flask, jsonify, request
 import xmltodict
-
-
 import csv
 import joblib
 import pandas as pd
@@ -13,6 +10,7 @@ from sklearn.linear_model import LinearRegression
 from flask_cors import CORS
 
 app=Flask(__name__)
+#core uses for domain errors
 CORS(app)
 
 global data_time_set,data_day_set,data_place_set
@@ -21,7 +19,7 @@ totOfDay=np.arange(12)
 totOfATime=np.arange(15)
 predicitCSV=np.arange(3).reshape(1,3)
 
-
+#total count of week by days
 @app.route("/weekTot",methods=['GET','POST'])
 def weekTot():
     totOfWeek.fill(0)
@@ -50,7 +48,7 @@ def weekTot():
 
 
 
-
+#total count of a time range by locations
 @app.route("/totOfATime",methods=['GET','POST'])
 def totOfATim():
     if request.method=='POST':
@@ -78,7 +76,7 @@ def totOfATim():
 
 
 
-
+#total count of a day by time ranges
 @app.route("/totOfDay",methods=['GET','POST'])
 def totOfDa():
     totOfDay.fill(0)
