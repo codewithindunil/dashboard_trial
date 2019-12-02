@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <DIV>
+            <div>
+                    <form action="http://127.0.0.1:5000/weekTot" method="GET">
+                        <p><input type="text" name="time" placeholder="      Time"/></p>
+                        <p><input type="text" name="date"placeholder="      Date"/></p>
+                        <p><input type="text" name="loc" placeholder="    Location"/></p>
+                        <input type="submit" value="Total of Week"/>
+                        <input type="submit" value="Total Of Time" formaction="http://127.0.0.1:5000/totOfATime">
+                        <input type="submit" value="Total Of Day" formaction="http://127.0.0.1:5000/totOfDay">
+
+                    
+                    </form>
+                    <h1>{{answer}}</h1>
+            </div>
+            <br>
+    <br>
+    <br>
+
+    <div>
+        <img src="chart.png"/>
+    </div>
+    </DIV>
+   
+
+    
+    
+</body>
+</html>
