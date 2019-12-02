@@ -70,7 +70,7 @@ def totOfATim():
             else:
                 y=(np.around(x,decimals=0))  
             totOfATime[loc]=totOfATime[loc] + y
-    return render_template('result.html',answer=totOfATime)
+    #return render_template('result.html',answer=totOfATime)
     x=totOfATime.tolist()
     return jsonify(x)
 
@@ -103,8 +103,9 @@ def totOfDa():
                 else:
                     y=(np.around(x,decimals=0))
                 totOfDay[time]=totOfDay[time] + y
-    return render_template('result.html',answer=totOfDay)
-    #return totOfDay
+    #return render_template('result.html',answer=totOfDay)
+    x=totOfDay.tolist()
+    return jsonify(x)
 
 ##@app.route("/predict",methods=['GET','POST'])
 ##def pred():
