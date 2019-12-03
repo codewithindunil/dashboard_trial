@@ -81,9 +81,20 @@
                             <a href="#" class="btn btn-primary btn-block btn-lg active shadow p-3 mb-5  rounded"
                                 role="button" aria-pressed="true" onclick="predict()">PREDICT</a>
                             <a href="#" class="btn btn-primary btn-block btn-lg active shadow p-3 mb-5  rounded"
-                                role="button" aria-pressed="true" onclick="chartTimely()">CHARTS</a>
+                                role="button" aria-pressed="true" onclick="week()">WEEK</a>
+                                <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">RESULTS</div>
+                                    <div class="card-body">
+                                      <!-- <h5 class="card-title" id="results"></h5> -->
+                                      <canvas id="results"></canvas>
+                                      
+                                    </div>
+                                  </div>
                         </div>
+
                     </div>
+
+                    
                 </div>
 
 
@@ -254,7 +265,7 @@
             });
         }
 
-        function week(values) {
+        function weekc(values) {
             //bar
             var ctxB = document.getElementById("weekTotChart").getContext('2d');
             var myBarChart = new Chart(ctxB, {
@@ -337,22 +348,29 @@
 
 
         function week() {
-            var x = document.getElementById("loadingcss");
-            var txt_date = $('#txt_date').val();
-            var txt_time = $('#txt_time').val();
-            var txt_location = $('#txt_location').val();
-            let url = 'http://127.0.0.1:5000/weekTot?time=' + txt_time + '&date=' + txt_date + '&loc=' + txt_location;
+            // alert("called");
+            // var x = document.getElementById("loadingcss");
+            // var txt_date = $('#txt_date').val();
+            // var txt_time = $('#txt_time').val();
+            // var txt_location = $('#txt_location').val();
+            let url = 'http://127.0.0.1:5000/weekTot?';
             $.ajax({
                 url: url,
                 crossDomain: true,
-                type: "get",
+                type: "POST",
                 //data: values ,
+                data: {
+                    date:txt_date,
+                    loc:txt_location,
+                    time:txt_time
+                } ,
                 beforeSend: function () {
 
                 },
                 success: function (data) {
                     // Sucess data
-                    week(data);
+                    alert(data);
+                    // weekc(data);
                 },
                 error: function (xhr) {
                     // if error occured
@@ -372,12 +390,16 @@
             var txt_date = $('#txt_date').val();
             var txt_time = $('#txt_time').val();
             var txt_location = $('#txt_location').val();
-            let url = 'http://127.0.0.1:5000/totOfDay?time=' + txt_time + '&date=' + txt_date + '&loc=' + txt_location;
+            let url = 'http://127.0.0.1:5000/totOfDay';
             $.ajax({
                 url: url,
                 crossDomain: true,
-                type: "get",
-                //data: values ,
+                type: "POST",
+                data: {
+                    date:txt_date,
+                    loc:txt_location,
+                    time:txt_time
+                } ,
                 beforeSend: function () {
 
                 },
@@ -403,12 +425,16 @@
             var txt_date = $('#txt_date').val();
             var txt_time = $('#txt_time').val();
             var txt_location = $('#txt_location').val();
-            let url = 'http://127.0.0.1:5000/totOfATime?time=' + txt_time + '&date=' + txt_date + '&loc=' + txt_location;
+            let url = 'http://127.0.0.1:5000/totOfATime';
             $.ajax({
                 url: url,
                 crossDomain: true,
-                type: "get",
-                //data: values ,
+                type: "POST",
+                data: {
+                    date:txt_date,
+                    loc:txt_location,
+                    time:txt_time
+                } , 
                 beforeSend: function () {
 
                 },
@@ -439,14 +465,20 @@
             $.ajax({
                 url: url,
                 crossDomain: true,
-                type: "get",
+                type: "POST",
+                data: {
+                    date:txt_date,
+                    loc:txt_location,
+                    time:txt_time
                 //data: values ,
+                },
                 beforeSend: function () {
 
                 },
                 success: function (data) {
                     // Sucess data
                     alert(data);
+                    document.getElementById('results').value = data;
                     // chartTimely(data);
                 },
                 error: function (xhr) {

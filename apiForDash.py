@@ -42,7 +42,7 @@ def weekTot():
                 else:
                     y=(np.around(x,decimals=0))
                 totOfWeek[date]=totOfWeek[date] + y
-    return render_template('input.html',answer=totOfWeek)
+    #return render_template('input.html',answer=totOfWeek)
     x=totOfWeek.tolist()
     return jsonify(x)
 
@@ -79,7 +79,6 @@ def totOfATim():
 #total count of a day by time ranges
 @app.route("/totOfDay",methods=['GET','POST'])
 def totOfDa():
-    totOfDay.fill(0)
     if request.method=='POST':
         data=request.form
         data_day_set=data['date']
@@ -87,15 +86,14 @@ def totOfDa():
         totOfDay.fill(0)
         for time in range(0, 12):
             for loc in range(0, 15):
-                data_place_set=loc
+                #data_place_set=loc
                 #data_day_set=day
-                data_time_set=time
+                #data_time_set=time
                 predicitCSV[0][0]=data_day_set
-                predicitCSV[0][1]=data_time_set
-                predicitCSV[0][2]=data_place_set
+                predicitCSV[0][1]=time
+                predicitCSV[0][2]=loc
                 data=predicitCSV[:,0:3]
                 clsfr_linear=joblib.load('Rides_predictor_linear_count.sav')
-
                 result_linear=clsfr_linear.predict(data)
                 x=np.around(result_linear,decimals=2)
                 if(x-(np.around(x,decimals=0))>0.49):
@@ -107,27 +105,27 @@ def totOfDa():
     x=totOfDay.tolist()
     return jsonify(x)
 
-##@app.route("/predict",methods=['GET','POST'])
-##def pred():
-##    if request.method=='POST':
-##        data=request.form
-##        data_place_set=data['loc']
-##        data_day_set=data['date']
-##        data_time_set=data['time']
-##        predicitCSV=[(data_day_set,data_time_set,data_place_set)]
-##        csvfile=open('predictCSV.csv','w',newline='')
-##        obj=csv.writer(csvfile)
-##        for person in predicitCSV:
-##            obj.writerow(person)
-##            obj.writerow(person)
-##        csvfile.close()
-##        dataset=pd.read_csv('predictCSV.csv').values
-##        data=dataset[:,0:3]
-##        clsfr_linear=joblib.load('Rides_predictor_linear_count.sav')
-##    result_linear=clsfr_linear.predict(data)
-##    return render_template('result.html',answer=result_linear)
-####        x=result_linear.tolist()
-####        return jsonify(x)
+@app.route("/predict",methods=['GET','POST'])
+def pred():
+    if request.method=='POST':
+        data=request.form
+        data_place_set=data['loc']
+        data_day_set=data['date']
+        data_time_set=data['time']
+        predicitCSV=[(data_day_set,data_time_set,data_place_set)]
+        csvfile=open('predictCSV.csv','w',newline='')
+        obj=csv.writer(csvfile)
+        for person in predicitCSV:
+            obj.writerow(person)
+            obj.writerow(person)
+        csvfile.close()
+        dataset=pd.read_csv('predictCSV.csv').values
+        data=dataset[:,0:3]
+        clsfr_linear=joblib.load('Rides_predictor_linear_count.sav')
+    result_linear=clsfr_linear.predict(data)
+    #return render_template('result.html',answer=result_linear)
+    x=result_linear.tolist()
+    return jsonify(x)
 
 
 
