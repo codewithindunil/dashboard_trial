@@ -350,9 +350,9 @@
         function week() {
             // alert("called");
             // var x = document.getElementById("loadingcss");
-            // var txt_date = $('#txt_date').val();
-            // var txt_time = $('#txt_time').val();
-            // var txt_location = $('#txt_location').val();
+            var txt_date = $('#txt_date').val();
+            var txt_time = $('#txt_time').val();
+            var txt_location = $('#txt_location').val();
             let url = 'http://127.0.0.1:5000/weekTot?';
             $.ajax({
                 url: url,
@@ -369,8 +369,8 @@
                 },
                 success: function (data) {
                     // Sucess data
-                    alert(data);
-                    // weekc(data);
+                    // alert(data);
+                    weekc(data);
                 },
                 error: function (xhr) {
                     // if error occured
